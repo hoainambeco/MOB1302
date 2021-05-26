@@ -17,7 +17,7 @@ public class SinhVien extends Nguoi {
     }
 
     public SinhVien(String maSV, String chuyenNganh, String hoTen, int gioiTinh, String queQuan, String diaChi) {
-        super(hoTen, gioiTinh, queQuan, diaChi);
+        super(hoTen, gioiTinh, queQuan, diaChi,maSV,chuyenNganh);
         this.maSV = maSV;
         this.chuyenNganh = chuyenNganh;
     }

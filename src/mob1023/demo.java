@@ -1,4 +1,4 @@
-
+package mob1023;
 import buoi1.QuanLy;
 import buoi1.QuanLyDanhSach;
 import buoi1.SinhVien;

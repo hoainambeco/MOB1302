@@ -50,4 +50,9 @@ public class QuanLyDanhSach implements QuanLy
         this.danhSach.add(sv2);
         this.danhSach.add(sv3);
     }
+
+    @Override
+    public void setDanhSach(ArrayList<Nguoi> danhsach) {
+        this.danhSach = danhsach;
+    }
 }

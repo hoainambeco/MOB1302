@@ -10,6 +10,10 @@ import buoi1.QuanLy;
 import buoi1.QuanLyDanhSach;
 import buoi1.SinhVien;
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,16 +27,16 @@ public class baiTapVeNha extends javax.swing.JFrame {
     /**
      * Creates new form baiTapVeNha
      */
-    
     private QuanLy qlsv;
-    
+
     public baiTapVeNha() {
         initComponents();
         this.qlsv = new QuanLyDanhSach();
         khoiTaoUI();
         hienThiJtable();
     }
-    private void khoiTaoUI(){
+
+    private void khoiTaoUI() {
         this.txtName.setText("");
         this.txtCode.setText("");
         this.txtQueQuan.setText("");
@@ -42,12 +46,12 @@ public class baiTapVeNha extends javax.swing.JFrame {
         this.cboCN.addItem("MOB");
         this.cboCN.addItem("TKW");
         this.cboCN.addItem("TKDH");
-        
+
     }
-    
-    private void hienThiJtable(){
-        ArrayList<Nguoi> listSV  = this.qlsv.xuatDanhSach();
-        DefaultTableModel dtm = (DefaultTableModel)this.tblStudenrs.getModel();
+
+    private void hienThiJtable() {
+        ArrayList<Nguoi> listSV = this.qlsv.xuatDanhSach();
+        DefaultTableModel dtm = (DefaultTableModel) this.tblStudenrs.getModel();
         dtm.setRowCount(0);
         for (int i = 0; i < listSV.size(); i++) {
             SinhVien sv = (SinhVien) listSV.get(i);
@@ -61,29 +65,30 @@ public class baiTapVeNha extends javax.swing.JFrame {
             dtm.addRow(rowData);
         }
     }
-    
-    private void hienthi(){
+
+    private void hienthi() {
         int row = this.tblStudenrs.getSelectedRow();
-        if(row == -1){
-            return ;
-        }else{
-           this.txtName.setText(this.qlsv.getByViTri(row).getHoTen());
-           this.txtQueQuan.setText(this.qlsv.getByViTri(row).getQueQuan());
-           this.txtCode.setText(this.qlsv.getByViTri(row).getMaSV());
-           if(this.qlsv.getByViTri(row).getGioiTinh() == 1){
-               this.rdoNam.setSelected(true);
-           }else if(this.qlsv.getByViTri(row).getGioiTinh() == 0){
-               this.rdoNu.setSelected(true);
-           }
-           for(int i=0;i<this.cboCN.getItemCount();i++){
-               if(this.cboCN.getItemAt(i)
-                       .equals(this.qlsv.getByViTri(row).getChuyenNganh())){
-                   this.cboCN.setSelectedIndex(i);
-               }
-           }
-           
+        if (row == -1) {
+            return;
+        } else {
+            this.txtName.setText(this.qlsv.getByViTri(row).getHoTen());
+            this.txtQueQuan.setText(this.qlsv.getByViTri(row).getQueQuan());
+            this.txtCode.setText(this.qlsv.getByViTri(row).getMaSV());
+            if (this.qlsv.getByViTri(row).getGioiTinh() == 1) {
+                this.rdoNam.setSelected(true);
+            } else if (this.qlsv.getByViTri(row).getGioiTinh() == 0) {
+                this.rdoNu.setSelected(true);
+            }
+            for (int i = 0; i < this.cboCN.getItemCount(); i++) {
+                if (this.cboCN.getItemAt(i)
+                        .equals(this.qlsv.getByViTri(row).getChuyenNganh())) {
+                    this.cboCN.setSelectedIndex(i);
+                }
+            }
+
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,6 +118,9 @@ public class baiTapVeNha extends javax.swing.JFrame {
         btnSVAO = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblStudenrs = new javax.swing.JTable();
+        btnGhiFile = new javax.swing.JButton();
+        btnDocFilr = new javax.swing.JButton();
+        btnExxit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -229,6 +237,27 @@ public class baiTapVeNha extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblStudenrs);
 
+        btnGhiFile.setText("Ghi File");
+        btnGhiFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGhiFileActionPerformed(evt);
+            }
+        });
+
+        btnDocFilr.setText("Đọc File");
+        btnDocFilr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocFilrActionPerformed(evt);
+            }
+        });
+
+        btnExxit.setText("Dừng chương trình");
+        btnExxit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExxitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -238,22 +267,6 @@ public class baiTapVeNha extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblGioitinh)
-                            .addGap(18, 18, 18)
-                            .addComponent(rdoNam)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(rdoNu))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnADD)
-                            .addGap(34, 34, 34)
-                            .addComponent(btnEdit)
-                            .addGap(41, 41, 41)
-                            .addComponent(btnDelete)
-                            .addGap(32, 32, 32)
-                            .addComponent(btnDeleteFrom)
-                            .addGap(49, 49, 49)
-                            .addComponent(btnSVAO))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
@@ -277,7 +290,33 @@ public class baiTapVeNha extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(lblQLSV)
                                     .addGap(41, 41, 41)))
-                            .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtQueQuan, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnADD)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(btnEdit))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblGioitinh)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(rdoNam)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(rdoNu)))
+                            .addGap(41, 41, 41)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnGhiFile)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnDocFilr)
+                                    .addGap(39, 39, 39)
+                                    .addComponent(btnExxit))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnDelete)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(btnDeleteFrom)
+                                    .addGap(49, 49, 49)
+                                    .addComponent(btnSVAO))))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -304,12 +343,20 @@ public class baiTapVeNha extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(cboCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(2, 2, 2)))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGioitinh)
-                    .addComponent(rdoNam)
-                    .addComponent(rdoNu))
-                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblGioitinh)
+                            .addComponent(rdoNam)
+                            .addComponent(rdoNu))
+                        .addGap(37, 37, 37))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGhiFile)
+                            .addComponent(btnDocFilr)
+                            .addComponent(btnExxit))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnADD)
                     .addComponent(btnDelete)
@@ -356,39 +403,36 @@ public class baiTapVeNha extends javax.swing.JFrame {
         boolean isNam = this.rdoNam.isSelected();
         boolean isNu = this.rdoNu.isSelected();
         int gioiTinh = isNam == true ? 1 : 0;
-        if (hoTen.length()==0 || maSV.length()== 0 || quequan.length()==0 ){
-            JOptionPane.showMessageDialog(this,"không được để trống","lỗi", JOptionPane.ERROR_MESSAGE);
-            return ;
+        if(hoTen.length() == 0 || maSV.length() == 0 || quequan.length() == 0) {
+            JOptionPane.showMessageDialog(this, "không được để trống", "lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        DefaultTableModel dtm = (DefaultTableModel)this.tblStudenrs.getModel();
-        dtm.setRowCount(0); 
+        DefaultTableModel dtm = (DefaultTableModel) this.tblStudenrs.getModel();
+        dtm.setRowCount(0);
         SinhVien sv = new SinhVien(maSV, chuyenNganh, hoTen, gioiTinh, quequan, quequan);
         this.qlsv.them(sv);
         this.hienThiJtable();
         this.khoiTaoUI();
 //        DefaultTableModel dtm = (DefaultTableModel)this.tblStudenrs.getModel();
-//        Object[] rowData = new Object[]{code,Name,Gioitinh,chuyennganh,quequan};
-//        dtm.addRow(rowData);
+//        Object[] rowData = new Object[]{code,Name,Gioitinh,chuyennganh,qtblStudenrs/        dtm.addRow(rowData);
     }//GEN-LAST:event_btnADDActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         int row = this.tblStudenrs.getSelectedRow();
-        if(row == -1){
-            return ;
+        if (row == -1) {
+            return;
         }
         this.qlsv.xoa(row);
         this.btnADDActionPerformed(evt);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        ArrayList<Nguoi> listSV  = this.qlsv.xuatDanhSach();
+        ArrayList<Nguoi> listSV = this.qlsv.xuatDanhSach();
         int row = this.tblStudenrs.getSelectedRow();
-        if (row == -1 )
-        {
+        if (row == -1) {
             return;
-        }
-        else{
+        } else {
             this.qlsv.xoa(row);
             this.hienThiJtable();
             return;
@@ -427,7 +471,53 @@ public class baiTapVeNha extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_tblStudenrsMouseClicked
 
-    
+    private void btnGhiFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiFileActionPerformed
+        ArrayList<Nguoi> list = this.qlsv.xuatDanhSach();
+        if (list.isEmpty()) {
+            return;
+        }
+        String filename = "src/baiTapTest/data.txt";
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            for (int i = 0; i < list.size(); i++) {
+                SinhVien sv = (SinhVien) list.get(i);
+                oos.writeObject(sv);
+            }
+            JOptionPane.showMessageDialog(this, "Ghi File Thành công");
+            oos.close();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Ghi file thất bại");
+        }
+    }//GEN-LAST:event_btnGhiFileActionPerformed
+
+    private void btnDocFilrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocFilrActionPerformed
+        String filename = "src/baiTapTest/data.txt";
+        try {
+            ArrayList<Nguoi> list = new ArrayList<>();
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            while (fis.available() != 0 ) {
+                SinhVien sv = (SinhVien) ois.readObject();
+                list.add(sv);
+            }
+            this.qlsv.setDanhSach(list);
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("đọc file thất bại");
+        }
+        this.hienthi();
+        this.hienThiJtable();
+    }//GEN-LAST:event_btnDocFilrActionPerformed
+
+    private void btnExxitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExxitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnExxitActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -467,7 +557,10 @@ public class baiTapVeNha extends javax.swing.JFrame {
     private javax.swing.JButton btnADD;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDeleteFrom;
+    private javax.swing.JButton btnDocFilr;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnExxit;
+    private javax.swing.JButton btnGhiFile;
     private javax.swing.JButton btnSVAO;
     private javax.swing.JComboBox<String> cboCN;
     private javax.swing.JLabel jLabel1;

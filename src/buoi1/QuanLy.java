@@ -21,4 +21,6 @@ public interface QuanLy {
     public Nguoi getByViTri(int viTri);
     
     public void taoSVao();
+    
+    public void setDanhSach(ArrayList<Nguoi>danhsach);
 }

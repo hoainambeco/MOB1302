@@ -1,4 +1,5 @@
 package mob1023;
+
 import buoi1.QuanLy;
 import buoi1.QuanLyDanhSach;
 import buoi1.SinhVien;
@@ -6,16 +7,11 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author namxg
@@ -26,7 +22,7 @@ public class JFrameDemo extends javax.swing.JFrame {
      * Creates new form demo
      */
     private QuanLy qlsv;
-    
+
     public JFrameDemo() {
         initComponents();
         this.cbbChuyenNganh.addItem("Quản Trị khách sạn");
@@ -257,29 +253,29 @@ public class JFrameDemo extends javax.swing.JFrame {
         boolean ghiNhoDangNhap = this.chkGhiNho.isSelected();
         boolean isNam = this.radNam.isSelected();
         boolean isNu = this.radNu.isSelected();
-        
+
         String chuyennganh = this.cbbChuyenNganh.getSelectedItem().toString();
         this.cbbChuyenNganh.getSelectedIndex();
-        if (username.length()==0 || password.length()== 0 ){
-            JOptionPane.showMessageDialog(this,"không được để trống","lỗi", JOptionPane.ERROR_MESSAGE);
-            return ;
+        if (username.length() == 0 || password.length() == 0) {
+            JOptionPane.showMessageDialog(this, "không được để trống", "lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         int confirmHocLai = JOptionPane.showConfirmDialog(this, "bạn điền đủ thông tin chưa", "xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-        
+
         String soLuongNy = JOptionPane.showInputDialog(this, "có mấy người yêu");
-        System.out.println("User name: "+ username);
-        System.out.println("Password: "+ password);
-        System.out.println("ghi nhớ: "+ ghiNhoDangNhap);
-        System.out.println("nam: "+ isNam);
-        System.out.println("nữ: "+ isNu);
-        System.out.println("chuyên ngành: "+ chuyennganh);
-        System.out.println("học lại: "+ confirmHocLai);
+        System.out.println("User name: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("ghi nhớ: " + ghiNhoDangNhap);
+        System.out.println("nam: " + isNam);
+        System.out.println("nữ: " + isNu);
+        System.out.println("chuyên ngành: " + chuyennganh);
+        System.out.println("học lại: " + confirmHocLai);
         System.out.println("số lượng người yêu" + soLuongNy);
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnTaoSinhVienAoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaoSinhVienAoActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel dtm = (DefaultTableModel)this.tblSinhVien.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) this.tblSinhVien.getModel();
         //xóa toàn bộ dữ liệu có trong table 
         dtm.setRowCount(0);
         //thêm 1 hàng
@@ -294,7 +290,7 @@ public class JFrameDemo extends javax.swing.JFrame {
             };
             dtm.addRow(rowData);
         }
-        
+
     }//GEN-LAST:event_btnTaoSinhVienAoActionPerformed
 
     /**

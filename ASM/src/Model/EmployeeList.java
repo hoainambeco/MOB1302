@@ -40,10 +40,16 @@ public class EmployeeList {
         if(index >0){
             index --;
         }
+        else{
+            index = list.size()-1;
+        }
     }
     public void next(){
         if(index <list.size()-1){
             index ++;
+        }
+        else{
+            index = 0;
         }
     }
     public void last(){

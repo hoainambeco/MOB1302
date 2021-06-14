@@ -13,13 +13,13 @@ import java.io.Serializable;
  */
 public class Employee implements Serializable{
     private String employeeID,Name,email;
-    private Double salary;
+    private int salary;
     private int Age;
 
     public Employee() {
     }
 
-    public Employee(String employeeID, String Name, String email, Double salary, int Age) {
+    public Employee(String employeeID, String Name, String email, int salary, int Age) {
         this.employeeID = employeeID;
         this.Name = Name;
         this.email = email;
@@ -51,11 +51,11 @@ public class Employee implements Serializable{
         this.email = email;
     }
 
-    public Double getSalary() {
+    public int getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 

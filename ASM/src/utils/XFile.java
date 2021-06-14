@@ -39,28 +39,4 @@ public class XFile {
         }
         return null;
     }
-    public static byte[] read(String path){
-        try{
-            FileInputStream fis = new FileInputStream(path);
-            int n = fis.available();
-            byte[] data = new byte[n];
-            fis.read(data);
-            fis.close();
-            return data;
-        } catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Đọc File thất bại");
-        }
-        return null;
-    }
-    public static void write(String path, byte[] data){
-        try (FileOutputStream fos = new FileOutputStream(path);){
-            fos.write(data);
-            fos.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            System.out.println("Ghi file thất bại");
-        }
-    }
 }

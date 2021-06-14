@@ -39,10 +39,10 @@ public class ASMJFrame extends javax.swing.JFrame implements Runnable {
     }
 
     private void initEmployeeData() {
-        empList.add(new Employee("N01", "nam", "nam@gmail.com", 1000000.0, 20));
-        empList.add(new Employee("N02", "nam", "nam@gmail.com", 1000000.0, 20));
-        empList.add(new Employee("N03", "nam", "nam@gmail.com", 1000000.0, 20));
-        empList.add(new Employee("N04", "nam", "nam@gmail.com", 1000000.0, 20));
+        empList.add(new Employee("N01", "nam", "nam@gmail.com", 1000000, 20));
+        empList.add(new Employee("N02", "nam", "nam@gmail.com", 1000000, 20));
+        empList.add(new Employee("N03", "nam", "nam@gmail.com", 1000000, 20));
+        empList.add(new Employee("N04", "nam", "nam@gmail.com", 1000000, 20));
         empList.FillToTable(tblModel);
     }
 
@@ -349,16 +349,17 @@ public class ASMJFrame extends javax.swing.JFrame implements Runnable {
             emp.setName(txtName.getText());
             emp.setAge(Integer.parseInt(txtTuoi.getText()));
             emp.setEmail(txtEmail.getText());
-            emp.setSalary(Double.parseDouble(txtLuong.getText()));
-            this.btnfindActionPerformed(evt);
+            emp.setSalary(Integer.parseInt(txtLuong.getText()));
+            this.TimKiem();
             if (isEditMode == true) {
                 empList.Update(emp);
+                JOptionPane.showMessageDialog(this, "Cập nhật Thành công");
             } else {
                 empList.add(emp);
+                JOptionPane.showMessageDialog(this, "Thêm Mới Thành công");
             }
             this.ClearFrom();
             empList.FillToTable(tblModel);
-            JOptionPane.showMessageDialog(this, "Thêm Mới Thành công");
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -475,19 +476,24 @@ public class ASMJFrame extends javax.swing.JFrame implements Runnable {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
+    public void TimKiem() {
         try {
             Employee emp = empList.findByID(txtMaNV.getText());
             if (emp != null) {
                 isEditMode = true;
                 hienthiNhanVien(emp);
             } else {
-                JOptionPane.showMessageDialog(this, "Thông Tin Không Tồn Tại Trong Hệ Thống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                isEditMode = false;
             }
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void btnfindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfindActionPerformed
+        this.TimKiem();
+        if (!isEditMode) {
+            JOptionPane.showMessageDialog(this, "Thông Tin Không Tồn Tại Trong Hệ Thống", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnfindActionPerformed
 

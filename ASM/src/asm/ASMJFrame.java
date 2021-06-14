@@ -616,18 +616,6 @@ public class ASMJFrame extends javax.swing.JFrame implements Runnable {
     public void run() {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
         while (true) {
-//            Calendar cal = Calendar.getInstance();
-//            int hour = cal.get(Calendar.HOUR_OF_DAY);
-//            int minute = cal.get(Calendar.MINUTE);
-//            int second = cal.get(Calendar.SECOND);
-//            String time = hour + " : " + minute + " : " + second;
-//            this.lblTime.setText(time);
-//            try {
-//                Thread.sleep(1000);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                JOptionPane.showMessageDialog(this, "Lỗi");
-//            }
             Date now = new Date();
             String st = sdf.format(now);
             lblTime.setText(st);
